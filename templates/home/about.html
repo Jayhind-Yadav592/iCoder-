@@ -1,0 +1,450 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - iCoder{% endblock title %}
+{% block aboutactive %}active{% endblock aboutactive %}
+
+{% block body %}
+
+<!-- About Header -->
+<div class="about-header py-5">
+  <div class="container text-center">
+    <h1 class="display-3 fw-bold text-white mb-3">About iCoder</h1>
+    <p class="lead text-white-50">Empowering developers through knowledge and community</p>
+  </div>
+</div>
+
+<!-- Our Story Section -->
+<div class="container my-5 py-5">
+  <div class="row align-items-center">
+    <div class="col-lg-6 mb-4 mb-lg-0">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600" 
+           alt="Team collaboration" class="img-fluid rounded shadow-lg">
+    </div>
+    <div class="col-lg-6">
+      <h2 class="fw-bold mb-4">Our Story</h2>
+      <p class="lead text-muted mb-4">
+        Founded with a passion for coding and teaching, iCoder has grown into a thriving community 
+        of developers helping each other learn and grow.
+      </p>
+      <p class="text-muted mb-4">
+        We believe that everyone should have access to quality programming education. Our mission 
+        is to provide comprehensive tutorials, articles, and resources that help developers at all 
+        levels improve their skills and advance their careers.
+      </p>
+      <p class="text-muted">
+        From beginners taking their first steps in programming to experienced developers exploring 
+        new technologies, iCoder is here to support your learning journey every step of the way.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Mission & Vision -->
+<div class="mission-section py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="mission-card text-center p-5 h-100">
+          <div class="icon-wrapper mb-4">
+            <i class="fas fa-bullseye fa-4x text-primary"></i>
+          </div>
+          <h3 class="fw-bold mb-3">Our Mission</h3>
+          <p class="text-muted mb-0">
+            To democratize programming education by providing high-quality, accessible content 
+            that empowers developers worldwide to achieve their goals and build amazing things.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="vision-card text-center p-5 h-100">
+          <div class="icon-wrapper mb-4">
+            <i class="fas fa-eye fa-4x text-primary"></i>
+          </div>
+          <h3 class="fw-bold mb-3">Our Vision</h3>
+          <p class="text-muted mb-0">
+            To become the world's most trusted resource for developers, fostering a global 
+            community where knowledge sharing and collaboration lead to innovation and growth.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- What We Offer -->
+<div class="container my-5 py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold mb-3">What We Offer</h2>
+    <p class="text-muted">Comprehensive resources to accelerate your development journey</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="feature-box text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-book-open fa-3x text-primary"></i>
+        </div>
+        <h4 class="fw-bold mb-3">In-Depth Tutorials</h4>
+        <p class="text-muted">
+          Step-by-step guides covering everything from basics to advanced concepts in various 
+          programming languages and frameworks.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-box text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-newspaper fa-3x text-primary"></i>
+        </div>
+        <h4 class="fw-bold mb-3">Tech Articles</h4>
+        <p class="text-muted">
+          Regular articles on the latest trends, best practices, and emerging technologies 
+          in the software development world.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-box text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-users fa-3x text-primary"></i>
+        </div>
+        <h4 class="fw-bold mb-3">Community Support</h4>
+        <p class="text-muted">
+          Connect with fellow developers, ask questions, share knowledge, and grow together 
+          in our supportive community.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-box text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-code fa-3x text-primary"></i>
+        </div>
+        <h4 class="fw-bold mb-3">Code Examples</h4>
+        <p class="text-muted">
+          Practical, real-world code examples that you can use and adapt for your own 
+          projects and learning.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-box text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-project-diagram fa-3x text-primary"></i>
+        </div>
+        <h4 class="fw-bold mb-3">Project Ideas</h4>
+        <p class="text-muted">
+          Inspiring project ideas and walkthroughs to help you build your portfolio and 
+          gain hands-on experience.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="feature-box text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-graduation-cap fa-3x text-primary"></i>
+        </div>
+        <h4 class="fw-bold mb-3">Learning Paths</h4>
+        <p class="text-muted">
+          Curated learning paths to guide you from beginner to expert in your chosen 
+          technology stack.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Section -->
+<div class="stats-section py-5">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-6 col-md-3">
+        <div class="stat-card p-4">
+          <i class="fas fa-users fa-3x text-white mb-3"></i>
+          <h2 class="fw-bold text-white mb-2">10K+</h2>
+          <p class="text-white-50 mb-0">Community Members</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card p-4">
+          <i class="fas fa-newspaper fa-3x text-white mb-3"></i>
+          <h2 class="fw-bold text-white mb-2">500+</h2>
+          <p class="text-white-50 mb-0">Articles Published</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card p-4">
+          <i class="fas fa-code fa-3x text-white mb-3"></i>
+          <h2 class="fw-bold text-white mb-2">1000+</h2>
+          <p class="text-white-50 mb-0">Code Examples</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card p-4">
+          <i class="fas fa-globe fa-3x text-white mb-3"></i>
+          <h2 class="fw-bold text-white mb-2">50+</h2>
+          <p class="text-white-50 mb-0">Countries Reached</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Team Section -->
+<div class="container my-5 py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold mb-3">Meet Our Team</h2>
+    <p class="text-muted">Passionate developers dedicated to your success</p>
+  </div>
+
+  <div class="row g-4 justify-content-center">
+    <div class="col-md-6 col-lg-3">
+      <div class="team-card text-center">
+        <div class="team-image mb-3">
+          <img src="/static/img/user4.png" alt="Team Member" class="rounded-circle img-fluid shadow">
+        </div>
+        <h5 class="fw-bold mb-1">Deepak Yadav</h5>
+       <a href="/blog/rahul-post/"><p class="text-primary mb-2">Founder & Lead Developer</p></a>
+        <p class="text-muted small mb-3">Full-stack developer with 8+ years of experience</p>
+        <div class="social-links">
+          <a href="#" class="text-muted mx-1"><i class="fab fa-github"></i></a>
+          <a href="#" class="text-muted mx-1"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="text-muted mx-1"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="team-card text-center">
+        <div class="team-image mb-3">
+          <img src="/static/img/user7.png" alt="Team Member" class="rounded-circle img-fluid shadow">
+        </div>
+        <h5 class="fw-bold mb-1">Bharat Singh</h5>
+        <a href="/blog/jay-post/"><p class="text-primary mb-2">Python Developer</p></a>
+        <p class="text-muted small mb-3">Technical writer & Python enthusiast</p>
+        <div class="social-links">
+          <a href="#" class="text-muted mx-1"><i class="fab fa-github"></i></a>
+          <a href="#" class="text-muted mx-1"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="text-muted mx-1"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="team-card text-center">
+        <div class="team-image mb-3">
+          <img src="/static/img/user5.png" alt="Team Member" class="rounded-circle img-fluid shadow">
+        </div>
+        <h5 class="fw-bold mb-1">Aisha Khan</h5>
+        <a href="/blog/post-blog/"><p class="text-primary mb-2">Community Manager</p></a>
+        <p class="text-muted small mb-3">Building connections & fostering growth</p>
+        <div class="social-links">
+          <a href="#" class="text-muted mx-1"><i class="fab fa-github"></i></a>
+          <a href="#" class="text-muted mx-1"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="text-muted mx-1"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+      <div class="team-card text-center">
+        <div class="team-image mb-3">
+          <img src="/static/img/user6.png" alt="Team Member" class="rounded-circle img-fluid shadow">
+        </div>
+        <h5 class="fw-bold mb-1">Chetan Kumar</h5>
+        <a href="/blog/chetan-post"><p class="text-primary mb-2">UI/UX Designer</p></a>
+        <p class="text-muted small mb-3">Creating beautiful user experiences</p>
+        <div class="social-links">
+          <a href="#" class="text-muted mx-1"><i class="fab fa-github"></i></a>
+          <a href="#" class="text-muted mx-1"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="text-muted mx-1"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Values Section -->
+<div class="values-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-3">Our Core Values</h2>
+      <p class="text-muted">The principles that guide everything we do</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="value-card text-center p-4 bg-white rounded shadow-sm h-100">
+          <div class="value-icon mb-3">
+            <i class="fas fa-heart fa-2x text-danger"></i>
+          </div>
+          <h5 class="fw-bold mb-3">Passion</h5>
+          <p class="text-muted mb-0">We love what we do and it shows in our work</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="value-card text-center p-4 bg-white rounded shadow-sm h-100">
+          <div class="value-icon mb-3">
+            <i class="fas fa-star fa-2x text-warning"></i>
+          </div>
+          <h5 class="fw-bold mb-3">Excellence</h5>
+          <p class="text-muted mb-0">We strive for the highest quality in everything</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="value-card text-center p-4 bg-white rounded shadow-sm h-100">
+          <div class="value-icon mb-3">
+            <i class="fas fa-handshake fa-2x text-success"></i>
+          </div>
+          <h5 class="fw-bold mb-3">Integrity</h5>
+          <p class="text-muted mb-0">Honest and transparent in all our interactions</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3">
+        <div class="value-card text-center p-4 bg-white rounded shadow-sm h-100">
+          <div class="value-icon mb-3">
+            <i class="fas fa-lightbulb fa-2x text-info"></i>
+          </div>
+          <h5 class="fw-bold mb-3">Innovation</h5>
+          <p class="text-muted mb-0">Always exploring new ways to help you learn</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA Section -->
+<div class="container my-5 py-5">
+  <div class="cta-box text-center p-5 rounded">
+    <h2 class="fw-bold text-white mb-3">Join Our Growing Community</h2>
+    <p class="lead text-white-50 mb-4">
+      Start your learning journey today and become part of something amazing
+    </p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a href="/blog" class="btn btn-light btn-lg px-5">
+        <i class="fas fa-book-reader me-2 mx-1"> </i>Explore Blog
+      </a>
+      <a href="/contact" class="btn btn-outline-light btn-lg px-5 mx-1">
+        <i class="fas fa-envelope me-2 mx-1"> </i>Get in Touch
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .about-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+  }
+
+  .about-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: white;
+    clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .mission-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+
+  .mission-card, .vision-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .mission-card:hover, .vision-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .feature-box {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+  }
+
+  .feature-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .stats-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .stat-card {
+    transition: transform 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: scale(1.05);
+  }
+
+  .team-card {
+    transition: transform 0.3s ease;
+    padding: 1.5rem;
+  }
+
+  .team-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .team-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 5px solid #fff;
+  }
+
+  .social-links a {
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+
+  .social-links a:hover {
+    color: #667eea !important;
+  }
+
+  .values-section {
+    background-color: #f8f9fa;
+  }
+
+  .value-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  @media (max-width: 768px) {
+    .about-header {
+      padding: 3rem 0 !important;
+    }
+    
+    .team-image img {
+      width: 120px;
+      height: 120px;
+    }
+  }
+</style>
+
+{% endblock %}

@@ -1,0 +1,448 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+{% load extras %}
+
+{% block title %}{{post.title}} - iCoder{% endblock title %}
+{% block body %}
+
+<!-- Blog Post Header -->
+<div class="post-header py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent">
+                        <li class="breadcrumb-item"><a href="/" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/blog" class="text-white">Blog</a></li>
+                        <li class="breadcrumb-item active text-white-50">{{post.title|truncatewords:5}}</li>
+                    </ol>
+                </nav>
+                <h1 class="display-4 fw-bold text-white mb-4">{{post.title}}</h1>
+           
+                <div class="post-meta d-flex align-items-center text-white-50">
+                    <!-- Post Author Image - From Views.py -->
+                    <img src="{% static 'img/user' %}{{ post.author|avatar }}.png" 
+                         alt="{{post.author}}"
+                         class="rounded-circle me-3 border border-2 border-white shadow" 
+                         width="50" height="50"
+                         style="object-fit: cover;">
+                    
+                    <div>
+                        <div class="fw-semibold text-white mx-1">{{post.author}}</div>
+                        <div class="small">
+                            <i class="far fa-calendar me-2 mx-1"></i>{{post.timeStamp|date:"M d, Y"}}
+                            <span class="mx-2">•</span>
+                            <i class="far fa-eye me-2 mx-1"></i>{{post.views}} views
+                            <span class="mx-2">•</span>
+                            <i class="far fa-comments me-2"></i>{{comments.count}} comments
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Blog Post Content -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <article class="blog-post-content bg-white p-4 p-md-5 rounded shadow-sm">
+                <div class="post-body">
+                    {{post.content|safe}}
+                </div>
+
+                <!-- Tags Section -->
+                <div class="post-tags mt-5 pt-4 border-top">
+                    <h6 class="fw-bold mb-3">Tags:</h6>
+                    <span class="badge bg-primary me-2 px-3 py-2">Python</span>
+                    <span class="badge bg-primary me-2 px-3 py-2">Django</span>
+                    <span class="badge bg-primary me-2 px-3 py-2">Web Development</span>
+                </div>
+
+                <!-- Share Section -->
+                <div class="post-share mt-4 pt-4 border-top">
+                    <h6 class="fw-bold mb-3">Share this post:</h6>
+                    <div class="share-buttons d-flex gap-2">
+                        <a href="#" class="btn btn-outline-primary btn-sm mx-1">
+                            <i class="fab fa-facebook-f mx-1"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-info btn-sm mx-1">
+                            <i class="fab fa-twitter mx-1"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-success btn-sm mx-1">
+                            <i class="fab fa-whatsapp mx-1"></i>
+                        </a>
+                        <a href="#" class="btn btn-outline-danger btn-sm mx-1">
+                            <i class="fab fa-linkedin-in mx-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Author Card -->
+            <div class="author-card bg-light p-4 rounded shadow-sm my-4">
+                <div class="d-flex align-items-start">
+                    <!-- Author Card Image - Same as header -->
+                    <img src="{% static 'img/user' %}{{ post.author|avatar }}.png" 
+                         alt="{{post.author}}" 
+                         class="rounded-circle me-4 border border-2 shadow" 
+                         width="80" height="80"
+                         style="object-fit: cover;">
+                    
+                    <div>
+                        <h5 class="fw-bold mb-2">About {{post.author}}</h5>
+                        <p class="text-muted mb-3">Passionate developer and tech enthusiast. Love to share knowledge about programming and web development.</p>
+                        <a href="/about" class="btn btn-sm btn-outline-primary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="comments-section bg-white p-4 p-md-5 rounded shadow-sm">
+                <h3 class="fw-bold mb-4">
+                    <i class="far fa-comments text-primary me-2"></i>
+                    Comments ({{comments.count}})
+                </h3>
+
+                <!-- Comment Form -->
+                <div class="comment-form mb-5">
+                    {% if user.is_authenticated %}
+                    <div class="user-comment-box p-4 bg-light rounded">
+                        <div class="d-flex align-items-start mb-3">
+                            <!-- Logged User Image - Using filter -->
+                            <img src="{% static 'img/user' %}{{ user.username|avatar }}.png" 
+                                 alt="{{user.username}}" 
+                                 class="rounded-circle me-3 border shadow-sm" 
+                                 width="50" height="50"
+                                 style="object-fit: cover;">
+                            
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold mb-0">{{user.username}}</h6>
+                                <small class="text-muted">Logged in</small>
+                            </div>
+                        </div>
+                        <form action="/blog/postComment" method="post">
+                            {% csrf_token %}
+                            <div class="form-group mb-3">
+                                <textarea class="form-control form-control-lg" name="comment" rows="3"
+                                    placeholder="Share your thoughts..." required></textarea>
+                            </div>
+                            <input type="hidden" name="postSno" value="{{post.sno}}">
+                            <input type="hidden" name="parentSno" value="">
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="fas fa-paper-plane me-2"></i>Post Comment
+                            </button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info d-flex align-items-center" role="alert">
+                        <i class="fas fa-info-circle fa-2x me-3"></i>
+                        <div>
+                            <h6 class="mb-1">Want to join the discussion?</h6>
+                            <p class="mb-0">Please <a href="/login" class="alert-link fw-bold">login</a> to post a comment.</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Comments List -->
+                <div class="comments-list">
+                    {% for comment in comments %}
+                    <div class="comment-item mb-4 pb-4 {% if not forloop.last %}border-bottom{% endif %}">
+                        <div class="d-flex align-items-start">
+                            <!-- Comment User Image - From Views.py -->
+                            <img src="{% static 'img/user' %}{{ comment.user.username|avatar }}.png" 
+                                 alt="{{comment.user.username}}"
+                                 class="rounded-circle me-3 border shadow-sm" 
+                                 width="50" height="50"
+                                 style="object-fit: cover;">
+                            
+                            <div class="flex-grow-1">
+                                <div class="comment-header mb-2">
+                                    <h6 class="fw-bold d-inline-block mb-0">{{comment.user.username}}</h6>
+                                    <span class="badge bg-secondary ms-2">{{comment.timestamp|naturaltime}}</span>
+                                </div>
+                                <p class="comment-text mb-3">{{comment.comment}}</p>
+
+                                <!-- Reply Button -->
+                                <div class="comment-actions">
+                                    {% if user.is_authenticated %}
+                                    <button class="btn btn-sm btn-outline-primary" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#replyBox{{comment.sno}}"
+                                        aria-expanded="false">
+                                        <i class="fas fa-reply me-1"></i>Reply
+                                    </button>
+                                    {% else %}
+                                    <button class="btn btn-sm btn-outline-secondary" type="button" disabled>
+                                        <i class="fas fa-lock me-1"></i>Login to reply
+                                    </button>
+                                    {% endif %}
+
+                                    <!-- Reply Form -->
+                                    <div class="collapse mt-3" id="replyBox{{comment.sno}}">
+                                        <div class="reply-box bg-light p-3 rounded">
+                                            <form action="/blog/postComment" method="post">
+                                                {% csrf_token %}
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label small fw-semibold">
+                                                        Replying to {{comment.user.username}}
+                                                    </label>
+                                                    <textarea class="form-control" name="comment" rows="2"
+                                                        placeholder="Write your reply..." required></textarea>
+                                                    <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                                                    <input type="hidden" name="postSno" value="{{post.sno}}">
+                                                </div>
+                                                <button type="submit" class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-paper-plane me-1"></i>Post Reply
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                    data-bs-toggle="collapse" data-bs-target="#replyBox{{comment.sno}}">
+                                                    Cancel
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Replies -->
+                                <div class="replies ms-4 mt-3">
+                                    {% for reply in replyDict|get_val:comment.sno %}
+                                    <div class="reply-item d-flex align-items-start mb-3 p-3 bg-light rounded">
+                                        <!-- Reply User Image - From Views.py -->
+                                        <img src="{% static 'img/user' %}{{ reply.user.username|avatar }}.png" 
+                                             alt="{{reply.user.username}}"
+                                             class="rounded-circle me-3 border shadow-sm" 
+                                             width="40" height="40"
+                                             style="object-fit: cover;">
+                                        
+                                        <div class="flex-grow-1">
+                                            <div class="reply-header mb-2">
+                                                <h6 class="fw-bold d-inline-block mb-0 small">{{reply.user.username}}</h6>
+                                                <span class="badge bg-secondary ms-2 small">{{reply.timestamp|naturaltime}}</span>
+                                            </div>
+                                            <p class="reply-text mb-0 small">{{reply.comment}}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% if not comments %}
+                    <div class="text-center py-5">
+                        <i class="far fa-comment-dots fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No comments yet</h5>
+                        <p class="text-muted">Be the first to share your thoughts!</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Related Posts -->
+            <div class="related-posts my-5">
+                <h3 class="fw-bold mb-4">You Might Also Like</h3>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <span class="badge bg-primary mb-2">Python</span>
+                                <h5 class="card-title fw-bold">Getting Started with Django</h5>
+                                <p class="card-text text-muted">Learn the fundamentals of Django framework...</p>
+                                <a href="/blog/new-post/" class="btn btn-sm btn-outline-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <span class="badge bg-success mb-2">JavaScript</span>
+                                <h5 class="card-title fw-bold">Modern JavaScript ES6+</h5>
+                                <p class="card-text text-muted">Master the latest Modern JavaScript features...</p>
+                                <a href="/blog/blog-post/" class="btn btn-sm btn-outline-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4 d-none d-lg-block">
+            <div class="sidebar position-sticky" style="top: 100px;">
+                <!-- Search Widget -->
+                <div class="widget bg-white p-4 rounded shadow-sm mb-4">
+                    <h5 class="fw-bold mb-3">Search Posts</h5>
+                    <form action="/search" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="query" placeholder="Search...">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="widget bg-white p-4 rounded shadow-sm mb-4">
+                    <h5 class="fw-bold mb-3">Categories</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2">
+                            <a href="#" class="text-decoration-none">Python <span class="badge bg-light text-dark float-end">12</span></a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-decoration-none">JavaScript <span class="badge bg-light text-dark float-end">8</span></a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-decoration-none">Web Development <span class="badge bg-light text-dark float-end">15</span></a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#" class="text-decoration-none">Django <span class="badge bg-light text-dark float-end">6</span></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Popular Posts Widget -->
+                <div class="widget bg-white p-4 rounded shadow-sm">
+                    <h5 class="fw-bold mb-3">Popular Posts</h5>
+                    <div class="popular-post mb-3 pb-3 border-bottom">
+                        <h6 class="fw-semibold mb-1"><a href="#" class="text-decoration-none text-dark">Getting Started with Django</a></h6>
+                        <small class="text-muted"><i class="far fa-eye me-1"></i>1.2k views</small>
+                    </div>
+                    <div class="popular-post mb-3 pb-3 border-bottom">
+                        <h6 class="fw-semibold mb-1"><a href="#" class="text-decoration-none text-dark">Modern JavaScript Guide</a></h6>
+                        <small class="text-muted"><i class="far fa-eye me-1"></i>980 views</small>
+                    </div>
+                    <div class="popular-post">
+                        <h6 class="fw-semibold mb-1"><a href="#" class="text-decoration-none text-dark">Python Best Practices</a></h6>
+                        <small class="text-muted"><i class="far fa-eye me-1"></i>875 views</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .post-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        position: relative;
+    }
+
+    .post-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .blog-post-content {
+        border: 1px solid #e9ecef;
+    }
+
+    .post-body {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    .post-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+    .post-body h2,
+    .post-body h3 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .post-body p {
+        margin-bottom: 1.5rem;
+    }
+
+    .author-card {
+        border: 1px solid #e9ecef;
+    }
+
+    .comment-item {
+        transition: background-color 0.2s ease;
+    }
+
+    .comment-item:hover {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1rem;
+    }
+
+    .reply-item {
+        border-left: 3px solid #667eea;
+    }
+
+    .widget {
+        border: 1px solid #e9ecef;
+    }
+
+    .widget a {
+        color: #333;
+        transition: color 0.2s ease;
+    }
+
+    .widget a:hover {
+        color: #667eea;
+    }
+
+    @media (max-width: 768px) {
+        .post-header {
+            padding: 3rem 0 !important;
+        }
+
+        .blog-post-content {
+            padding: 2rem !important;
+        }
+    }
+</style>
+
+<script>
+    // Smooth scroll to comments when reply is posted
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function () {
+            setTimeout(() => {
+                window.location.hash = '#comments';
+            }, 100);
+        });
+    });
+</script>
+
+{% endblock %}
+```
+
+---
+
+## **Step 4: Folder Structure**
+
+Ensure ye files exist:
+```
+static/
+  img/
+    user1.png
+    user2.png
+    user3.png
+    user4.png
+    user5.png
+    user6.png
+
+blog/
+  templatetags/
+    __init__.py       ← Empty file (MUST exist)
+    extras.py         ← With filters

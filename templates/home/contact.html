@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - iCoder{% endblock title %}
+{% block contactactive %}active{% endblock contactactive %}
+
+{% block body %}
+<!-- Contact Header -->
+<div class="contact-header py-5">
+  <div class="container text-center">
+    <h1 class="fw-bold mb-3">Get In Touch</h1>
+    <p class="lead text-muted"><b style="color: #0c0c0c;">We'd love to hear from you. Send us a message and we'll
+        respond as soon as possible.</b></p>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row g-5">
+    <!-- Contact Form -->
+    <div class="col-lg-7">
+      <div class="contact-form-wrapper p-4 p-md-5 rounded shadow-sm bg-white">
+        <h3 class="fw-bold mb-4">Send us a Message</h3>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <form action="/contact" method="post" id="contactForm">
+          {% csrf_token %}
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="form-group mb-4">
+                <label for="name" class="form-label fw-semibold">
+                  <i class="fas fa-user text-primary me-2 mx-1"></i>Full Name
+                </label>
+                <input type="text" class="form-control form-control-lg" id="name" name="name"
+                  placeholder="Enter your name" required>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group mb-4">
+                <label for="email" class="form-label fw-semibold">
+                  <i class="fas fa-envelope text-primary me-2 mx-1"></i>Email Address
+                </label>
+                <input type="email" class="form-control form-control-lg" id="email" name="email"
+                  placeholder="your.email@example.com" required>
+                <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group mb-4">
+                <label for="phone" class="form-label fw-semibold">
+                  <i class="fas fa-phone text-primary me-2 mx-1"></i>Phone Number
+                </label>
+                <input type="tel" class="form-control form-control-lg" id="phone" name="phone"
+                  placeholder="+91 98765 43210">
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group mb-4">
+                <label for="subject" class="form-label fw-semibold">
+                  <i class="fas fa-tag text-primary me-2 mx-1"></i>Subject
+                </label>
+                <select class="form-select form-select-lg" id="subject" name="subject" required>
+                  <option value="">Select a subject</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="technical">Technical Support</option>
+                  <option value="feedback">Feedback</option>
+                  <option value="collaboration">Collaboration</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-group mb-4">
+                <label for="content" class="form-label fw-semibold">
+                  <i class="fas fa-comment-dots text-primary me-2 mx-1"></i>Message
+                </label>
+                <textarea class="form-control form-control-lg" name="content" id="content" rows="6"
+                  placeholder="Describe your issue or inquiry..." required></textarea>
+                <small class="form-text text-muted">Minimum 10 characters</small>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-lg px-5 w-100 w-md-auto">
+                <i class="fas fa-paper-plane me-2 mx-1"></i>Send Message
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Contact Info Sidebar -->
+    <div class="col-lg-5">
+      <div class="contact-info">
+        <!-- Info Card 1 -->
+        <div class="info-card p-4 mb-4 rounded shadow-sm bg-white">
+          <div class="d-flex align-items-start">
+            <div class="icon-wrapper me-3">
+              <i class="fas fa-map-marker-alt fa-2x text-primary"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-2 mx-1">Our Location</h5>
+              <p class="text-muted mb-0">123 Tech Street, Cyber City<br>Mumbai, Maharashtra 400001<br>India</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Card 2 -->
+        <div class="info-card p-4 mb-4 rounded shadow-sm bg-white">
+          <div class="d-flex align-items-start">
+            <div class="icon-wrapper me-3">
+              <i class="fas fa-envelope fa-2x text-primary"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-2 mx-1">Email Us</h5>
+              <p class="text-muted mb-0">
+                <a href="mailto:support@icoder.com" class="text-decoration-none">support@icoder.com</a><br>
+                <a href="mailto:info@icoder.com" class="text-decoration-none">info@icoder.com</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Card 3 -->
+        <div class="info-card p-4 mb-4 rounded shadow-sm bg-white">
+          <div class="d-flex align-items-start">
+            <div class="icon-wrapper me-3">
+              <i class="fas fa-phone-alt fa-2x text-primary"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-2 mx-1">Call Us</h5>
+              <p class="text-muted mb-0">
+                +91 98765 43210<br>
+                +91 98765 43211<br>
+                <small>Mon-Fri: 9:00 AM - 6:00 PM</small>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Media -->
+        <div class="info-card p-4 rounded shadow-sm bg-primary text-white">
+          <h5 class="fw-bold mb-3">Follow Us</h5>
+          <div class="social-links d-flex gap-3">
+            <a href="#" class="social-icon mx-1">
+              <i class="fab fa-facebook-f fa-lg"></i>
+            </a>
+            <a href="#" class="social-icon mx-1">
+              <i class="fab fa-twitter fa-lg"></i>
+            </a>
+            <a href="#" class="social-icon mx-1">
+              <i class="fab fa-linkedin-in fa-lg"></i>
+            </a>
+            <a href="#" class="social-icon mx-1">
+              <i class="fab fa-github fa-lg"></i>
+            </a>
+            <a href="#" class="social-icon mx-1">
+              <i class="fab fa-instagram fa-lg"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Map Section (Optional) -->
+<div class="container-fluid px-0 my-5">
+  <div class="map-wrapper">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823277!2d72.74109995709658!3d19.082177513695472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+      width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="container my-5 py-5">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold mb-3">Frequently Asked Questions</h2>
+    <p class="text-muted"><b style="color: #252323;">Quick answers to common questions</b></p>
+  </div>
+</div>
+
+<style>
+  .contact-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .contact-form-wrapper {
+    border: 1px solid #e9ecef;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  }
+
+  .info-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+  }
+
+  .info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .social-icon:hover {
+    background: white;
+    color: #667eea;
+    transform: translateY(-3px);
+  }
+
+  .map-wrapper {
+    filter: grayscale(20%);
+    border-radius: 0;
+  }
+
+  .accordion-button:not(.collapsed) {
+    background-color: #667eea;
+    color: white;
+  }
+
+  .accordion-button:focus {
+    box-shadow: none;
+  }
+
+  @media (max-width: 768px) {
+    .contact-form-wrapper {
+      padding: 1.5rem !important;
+    }
+  }
+</style>
+
+<script>
+  // Form Validation
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+    const content = document.getElementById('content').value;
+    if (content.length < 10) {
+      e.preventDefault();
+      alert('Please write at least 10 characters in your message.');
+      return false;
+    }
+  });
+</script>
+{% endblock %}

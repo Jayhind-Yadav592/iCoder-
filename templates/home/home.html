@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - iCoder{% endblock title %}
+{% block homeactive %}active{% endblock homeactive %}
+
+{% block body %}
+<!-- Hero Section -->
+<div class="hero-section">
+  <div class="container">
+    <div class="row align-items-center min-vh-50">
+      <div class="col-lg-6">
+        <h1 class="display-3 fw-bold mb-4">Welcome to <span class="text-primary">iCoder</span></h1>
+        <p class="lead mb-4">Your ultimate destination for coding tutorials, tech insights, and programming best practices. Join our community of developers and start your learning journey today.</p>
+        <div class="d-flex gap-3">
+          <a class="btn btn-primary btn-lg px-4" href="/blog" role="button">
+            <i class="fas fa-book-reader me-2 mx-1"></i>Explore Blog
+          </a>
+          <a class="btn btn-outline-primary btn-lg px-4 mx-1" href="/about" role="button">Learn More</a>
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block">
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600" alt="Coding" class="img-fluid rounded shadow-lg">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="container my-5 py-5">
+  <div class="row text-center mb-5">
+    <div class="col">
+      <h2 class="fw-bold mb-3">Why Choose iCoder?</h2>
+      <p class="text-muted">Everything you need to excel in your coding journey</p>
+    </div>
+  </div>
+  
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="feature-card text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-code fa-3x text-primary"></i>
+        </div>
+        <h4 class="mb-3">Quality Tutorials</h4>
+        <p class="text-muted">Learn from comprehensive, well-structured tutorials covering various programming languages and frameworks.</p>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="feature-card text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-users fa-3x text-primary"></i>
+        </div>
+        <h4 class="mb-3">Active Community</h4>
+        <p class="text-muted">Connect with fellow developers, share knowledge, and grow together in our supportive community.</p>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="feature-card text-center p-4">
+        <div class="feature-icon mb-3">
+          <i class="fas fa-rocket fa-3x text-primary"></i>
+        </div>
+        <h4 class="mb-3">Latest Updates</h4>
+        <p class="text-muted">Stay updated with the latest trends, tools, and technologies in the programming world.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Popular Blog Posts Section -->
+<div class="container my-5 py-5 bg-light rounded">
+  <div class="row mb-4">
+    <div class="col">
+      <h2 class="fw-bold mb-2">Popular Blog Posts</h2>
+      <p class="text-muted">Discover our most loved articles</p>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Blog Post 1 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card blog-card h-100 shadow-sm border-0">
+        <div class="blog-image" style=" height: 200px;">
+        <img src="/media/blog_thumbnails/django.png"  class="img-fluid w-100 h-100 object-fit-cover"></div>
+        <div class="card-body">
+          <span class="badge bg-primary mb-2">Python</span>
+          <h5 class="card-title fw-bold">Getting Started with Django</h5>
+          <p class="text-muted small mb-2">
+            <i class="far fa-calendar me-2 mx-1"></i>Nov 12, 2024
+          </p>
+          <p class="card-text">Learn the fundamentals of Django framework and build your first web application from scratch.</p>
+          <a href="/blog/new-post/" class="btn btn-outline-primary btn-sm">Read More <i class="fas fa-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog Post 2 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card blog-card h-100 shadow-sm border-0">
+        <div class="blog-image" style=" height: 200px;">
+        <img src="/media/blog_thumbnails/javaS.webp" class="img-fluid w-100 h-100 object-fit-cover"></div>
+        <div class="card-body">
+          <span class="badge bg-success mb-2">JavaScript</span>
+          <h5 class="card-title fw-bold">Modern JavaScript ES6+</h5>
+          <p class="text-muted small mb-2">
+            <i class="far fa-calendar me-2 mx-1"></i>Nov 10, 2024
+          </p>
+          <p class="card-text">Master the latest JavaScript features including arrow functions, promises, and async/await.</p>
+          <a href="/blog/blog-post/" class="btn btn-outline-primary btn-sm">Read More <i class="fas fa-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog Post 3 -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card blog-card h-100 shadow-sm border-0">
+        <div class="blog-image" style=" height: 200px;">
+        <img src="/media/blog_thumbnails/ja2.webp"  class="img-fluid w-100 h-100 object-fit-cover"></div>
+        <div class="card-body">
+          <span class="badge bg-info mb-2">Web Dev</span>
+          <h5 class="card-title fw-bold">Responsive Design Tips</h5>
+          <p class="text-muted small mb-2">
+            <i class="far fa-calendar me-2 mx-1"></i>Nov 8, 2024
+          </p>
+          <p class="card-text">Create beautiful, responsive websites that work seamlessly across all devices and screen sizes.</p>
+          <a href="/blog/post-blog/" class="btn btn-outline-primary btn-sm">Read More <i class="fas fa-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <a href="/blog" class="btn btn-primary btn-lg px-5">View All Posts</a>
+  </div>
+</div>
+
+<!-- CTA Section -->
+<div class="container my-5 py-5">
+  <div class="cta-section text-center p-5 rounded">
+    <h2 class="fw-bold mb-3">Ready to Start Learning?</h2>
+    <p class="lead mb-4">Join thousands of developers improving their skills with iCoder</p>
+    <a href="/blog" class="btn btn-light btn-lg px-5">Get Started Now</a>
+  </div>
+</div>
+
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 80px 0;
+  }
+  
+  .min-vh-50 {
+    min-height: 50vh;
+  }
+  
+  .feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    background: white;
+    height: 100%;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  .blog-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  }
+  
+  .blog-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+  }
+  
+  .cta-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+</style>
+{% endblock %}

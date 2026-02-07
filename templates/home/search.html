@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+{% load humanize %}
+{% load extras %}
+
+{% block title %}Search Results - iCoder{% endblock title %}
+{% block blogactive %}active{% endblock blogactive %}
+
+{% block body %}
+
+<!-- Search Header -->
+<div class="search-header py-5">
+  <div class="container text-center">
+    <h1 class="display-5 fw-bold text-white mb-3">Search Results</h1>
+    <p class="lead text-white-50">
+      {% if allPosts|length > 0 %}
+        Found {{allPosts|length}} result{{allPosts|length|pluralize}} for "<span class="fw-bold">{{query}}</span>"
+      {% else %}
+        No results found for "<span class="fw-bold">{{query}}</span>"
+      {% endif %}
+    </p>
+  </div>
+</div>
+
+<div class="container my-5">
+  <!-- Search Bar -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-lg-8">
+      <form action="/search" method="get" class="search-form-inline">
+        <div class="input-group input-group-lg shadow-sm">
+          <input type="text" class="form-control" name="query" 
+                 placeholder="Try another search..." 
+                 value="{{query}}" required>
+          <button class="btn btn-primary px-4" type="submit">
+            <i class="fas fa-search me-2"></i>Search
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% if allPosts|length < 1 %}
+  <!-- No Results Section -->
+  <div class="no-results-section text-center py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="no-results-card bg-white p-5 rounded shadow-sm">
+          <i class="fas fa-search fa-4x text-muted mb-4"></i>
+          <h2 class="fw-bold mb-3">No Results Found</h2>
+          <p class="lead text-muted mb-4">
+            We couldn't find any articles matching "<strong>{{query}}</strong>"
+          </p>
+
+          <!-- Search Tips -->
+          <div class="search-tips text-start mt-5">
+            <h5 class="fw-bold mb-3">
+              <i class="fas fa-lightbulb text-warning me-2"></i>
+              Search Tips:
+            </h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                Make sure all words are spelled correctly
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                Try more general keywords
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                Try fewer keywords
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                Try different or related keywords
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                Use synonyms or alternative terms
+              </li>
+            </ul>
+          </div>
+
+          <!-- Popular Searches -->
+          <div class="popular-searches mt-5 pt-4 border-top">
+            <h6 class="fw-bold mb-3">Popular Searches:</h6>
+            <div class="d-flex flex-wrap gap-2 justify-content-center">
+              <a href="/search?query=python" class="badge text-decoration-none px-3 py-2 fs-6">
+                Python
+              </a>
+              <a href="/search?query=django" class="badge  text-decoration-none px-3 py-2 fs-6">
+                Django
+              </a>
+              <a href="/search?query=javascript" class="badge  text-decoration-none px-3 py-2 fs-6">
+                JavaScript
+              </a>
+              <a href="/search?query=web+development" class="badge  text-decoration-none px-3 py-2 fs-6">
+                Web Development
+              </a>
+              <a href="/search?query=tutorial" class="badge  text-decoration-none px-3 py-2 fs-6">
+                Tutorial
+              </a>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-5 d-flex gap-3 justify-content-center flex-wrap">
+            <a href="/blog" class="btn btn-primary btn-lg px-4">
+              <i class="fas fa-arrow-left me-2"></i>Browse All Articles
+            </a>
+            <a href="/" class="btn btn-outline-primary btn-lg px-4">
+              <i class="fas fa-home me-2"></i>Go to Homepage
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+  <!-- Results Header -->
+  <div class="results-header mb-4">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h3 class="fw-bold mb-2">Search Results</h3>
+        <p class="text-muted mb-0">
+          Showing {{allPosts|length}} result{{allPosts|length|pluralize}} for "{{query}}"
+        </p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <a href="/blog" class="btn btn-outline-primary">
+          <i class="fas fa-th-large me-2"></i>View All Articles
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Results Grid -->
+  <div class="row g-4">
+    {% for post in allPosts %}
+    <!-- Blog Card -->
+    <div class="col-lg-4">
+      <article class="blog-card h-100 shadow-sm rounded overflow-hidden bg-white">
+    
+        <!-- Card Image -->
+        <div class="blog-card-image position-relative">
+          {% if post.thumbnail %}
+          <img src="{{post.thumbnail.url}}" alt="{{post.title}}" class="w-100 h-100 object-fit-cover">
+          {% else %}
+          <div class="image-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <i class="fas fa-code fa-3x text-white opacity-50"></i>
+          </div>
+          {% endif %}
+          <div class="category-badge position-absolute top-0 start-0 m-3 ">
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="result-card-body p-4">
+          <!-- Meta Info -->
+          <div class="post-meta mb-3">
+            <div class="d-flex align-items-center mb-2">
+              <img src="{% static 'img/user' %}{{ post.author|avatar }}.png" alt="{{post.author}}" 
+                   class="rounded-circle me-2 border" width="30" height="30">
+              <span class="small fw-semibold text-primary">{{post.author}}</span>
+            </div>
+            <div class="small text-muted">
+              <i class="far fa-calendar me-1 mx-1"></i>{{post.timeStamp|date:"M d, Y"}}
+              <span class="mx-1">•</span>
+              <i class="far fa-clock  mx-1"></i>{{post.timeStamp|time:"H:i"}}
+            </div>
+          </div>
+
+          <!-- Title -->
+          <h4 class="result-card-title mb-3">
+            <a href="/blog/{{post.slug}}" class="text-dark text-decoration-none">
+              {{post.title}}
+            </a>
+          </h4>
+
+          <!-- Excerpt with highlight -->
+          <div class="result-excerpt text-muted mb-3">
+            {{post.content|safe|truncatechars:200}}
+          </div>
+
+          <!-- Footer -->
+          <div class="result-card-footer d-flex justify-content-between align-items-center">
+            <a href="/blog/{{post.slug}}" class="btn btn-outline-primary btn-sm">
+              Read Article <i class="fas fa-arrow-right ms-1"></i>
+            </a>
+            <div class="post-stats small text-muted">
+              <i class="far fa-eye me-1 mx-1"></i>{{post.views|default:"0"}}
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Load More Button (Optional) -->
+  <div class="text-center mt-5">
+    <a href="/blog" class="btn btn-primary btn-lg px-5">
+      <i class="fas fa-plus-circle me-2"></i>Explore More Articles
+    </a>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Related Searches Section -->
+{% if allPosts|length > 0 %}
+<div class="related-searches-section py-5 bg-light">
+  <div class="container">
+    <h4 class="fw-bold mb-4 text-center">Related Searches</h4>
+    <div class="d-flex flex-wrap gap-3 justify-content-center ">
+      <a href="/search?query={{query}}+tutorial" class="btn btn-outline-primary mx-1">
+        {{query}} Tutorial
+      </a>
+      <a href="/search?query={{query}}+guide" class="btn btn-outline-primary mx-1">
+        {{query}} Guide
+      </a>
+      <a href="/search?query={{query}}+examples" class="btn btn-outline-primary mx-1">
+        {{query}} Examples
+      </a>
+      <a href="/search?query={{query}}+best+practices" class="btn btn-outline-primary mx-1">
+        {{query}} Best Practices
+      </a>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<!-- CTA Section -->
+<div class="container my-5 py-5">
+  <div class="cta-section text-center p-5 rounded">
+    <i class="fas fa-bell fa-3x text-white mb-3"></i>
+    <h2 class="fw-bold text-white mb-3">Can't Find What You're Looking For?</h2>
+    <p class="lead text-white-50 mb-4">
+      Let us know what topics you'd like to see covered. We're always adding new content!
+    </p>
+    <a href="/contact" class="btn btn-light btn-lg px-5">
+      <i class="fas fa-paper-plane me-2"></i>Request a Topic
+    </a>
+  </div>
+</div>
+
+<style>
+  .search-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+  }
+
+  .search-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    {% comment %} height: 20px; {% endcomment %}
+    background: white;
+    clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .search-form-inline .form-control {
+    border: none;
+    border-radius: 50px 0 0 50px;
+  }
+
+  .search-form-inline .btn {
+    border-radius: 0 50px 50px 0;
+    border: none;
+  }
+
+  .no-results-card {
+    border: 1px solid #e9ecef;
+  }
+
+  .search-tips ul li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .search-tips ul li:last-child {
+    border-bottom: none;
+  }
+
+  .popular-searches .badge {
+    transition: all 0.3s ease;
+  }
+
+  .popular-searches .badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+  }
+
+  .search-result-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+  }
+
+  .search-result-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .result-card-image {
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+
+  .search-result-card:hover .image-placeholder {
+    transform: scale(1.05);
+  }
+
+  .result-card-title {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .result-card-title a:hover {
+    color: #667eea !important;
+  }
+
+  .result-excerpt {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Highlight search term */
+  .result-excerpt mark {
+    background-color: #fff3cd;
+    padding: 0 3px;
+    border-radius: 3px;
+  }
+
+  .related-searches-section {
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .related-searches-section .btn {
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
+
+  .related-searches-section .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .cta-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  @media (max-width: 768px) {
+    .search-header {
+      padding: 3rem 0 !important;
+    }
+
+    .result-card-image {
+      height: 180px;
+    }
+
+    .no-results-card {
+      padding: 3rem 1.5rem !important;
+    }
+  }
+</style>
+
+<script>
+  // Highlight search terms in results
+  document.addEventListener('DOMContentLoaded', function() {
+    const query = "{{query}}".toLowerCase();
+    const excerpts = document.querySelectorAll('.result-excerpt');
+    
+    if (query && query.length > 2) {
+      excerpts.forEach(excerpt => {
+        const text = excerpt.textContent;
+        const regex = new RegExp(`(${query})`, 'gi');
+        const highlightedText = text.replace(regex, '<mark>$1</mark>');
+        excerpt.innerHTML = highlightedText;
+      });
+    }
+  });
+
+  // Track search analytics (optional)
+  if ("{{query}}" && {{allPosts|length}} === 0) {
+    console.log('No results for:', "{{query}}");
+    // You can send this to analytics
+  }
+</script>
+{% endblock body %}
