@@ -129,3 +129,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+
+import os
+from django.contrib.auth import get_user_model
+
+def create_superuser():
+    username = os.environ.get("DJANGO_SUPERUSER_USERNAME")
+    email = os.environ.get("DJANGO_SUPERUSER_EMAIL")
+    password = os.environ.get("DJANGO_SUPERUSER_PASSWORD")
+
+    if username and email and password:
+        User = get_user_model()
+        if not User.objects.filter(username=username).exists():
+            print("Creating Render superuser...")
+            User.objects.create_superuser(username=username, email=email, password=password)
+
+# run after migrate
+try:
+    create_superuser()
+except:
+    pass

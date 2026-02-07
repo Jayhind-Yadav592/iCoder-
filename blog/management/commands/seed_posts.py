@@ -1,43 +1,61 @@
 from django.core.management.base import BaseCommand
-from blog.models import Post   # <-- yahi change
+from blog.models import Post, Profile
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.utils import timezone
 
 class Command(BaseCommand):
-    help = "Insert default blog posts"
+    help = "Insert default blog posts with avatar & thumbnail"
 
     def handle(self, *args, **kwargs):
-
-        # user create / get
-        user, created = User.objects.get_or_create(username="admin")
-        if created:
-            user.set_password("admin123")
-            user.save()
 
         posts = [
             {
                 "title": "Introduction to Python",
-                "content": "Python is a beginner friendly programming language used in web, AI and automation.",
+                "author": "Amit Verma",
+                "content": "Python is a beginner friendly programming language.",
+                "avatar": "avatars/amit.png",
+                "thumbnail": "blog_thumbnails/python.png"
             },
             {
                 "title": "Django vs Flask",
-                "content": "Django is a full framework while Flask is micro framework. Both are powerful for backend.",
+                "author": "Rahul Sharma",
+                "content": "Django full framework hai, Flask micro framework.",
+                "avatar": "avatars/rahul.png",
+                "thumbnail": "blog_thumbnails/django.png"
             },
             {
                 "title": "What is API?",
-                "content": "API allows two applications to communicate with each other using requests and responses.",
+                "author": "Ram Singh",
+                "content": "API do applications ko connect karta hai.",
+                "avatar": "avatars/ram.png",
+                "thumbnail": "blog_thumbnails/api.png"
             },
         ]
 
         for p in posts:
+
+            # create user
+            user, created = User.objects.get_or_create(username=p["author"])
+
+            if created:
+                user.set_password("12345")
+                user.save()
+
+            # update avatar
+            profile = Profile.objects.get(user=user)
+            profile.avatar = p["avatar"]
+            profile.save()
+
+            # create post
             Post.objects.get_or_create(
-                title=p["title"],
+                slug=slugify(p["title"]),
                 defaults={
+                    "title": p["title"],
                     "author": user,
-                    "slug": slugify(p["title"]),
                     "content": p["content"],
-                    "timeStamp": timezone.now()
+                    "timeStamp": timezone.now(),
+                    "thumbnail": p["thumbnail"]
                 }
             )
 

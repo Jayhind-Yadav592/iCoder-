@@ -13,7 +13,7 @@ class Post(models.Model):
     slug=models.CharField(max_length=130)
     timeStamp=models.DateTimeField(blank=True)
     time = models.TimeField(auto_now_add=True)
-    thumbnail = models.ImageField( upload_to='blog_thumbnails/',  blank=True,  null=True)
+    thumbnail = models.CharField(max_length=200, blank=True, null=True)
     content=models.TextField()
 
     def __str__(self):
@@ -32,3 +32,22 @@ class BlogComment(models.Model):
     def __str__(self):
         return self.comment[0:13] + "..." + " by" + " " + self.user.username
     
+from django.contrib.auth.models import User
+from django.db import models
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.CharField(max_length=200, default="avatars/user.png")
+
+    def __str__(self):
+        return self.user.username
+
+
+# AUTO CREATE PROFILE
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)

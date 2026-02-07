@@ -13,7 +13,7 @@ def avatar(name):
     if not name:
         return 1
     name_hash = sum(ord(char) for char in str(name))
-    return (name_hash % 9) + 1
+    return (name_hash % 8) + 1
 
 
 # GET REPLIES FROM DICTIONARY
